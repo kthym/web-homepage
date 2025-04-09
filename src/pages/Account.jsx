@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Typography, Box } from '@mui/material';
 
 function Account() {
@@ -6,29 +7,45 @@ function Account() {
   const [user, setUser] = useState({ name: '', email: '' });
   const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
 
-  // 로그인 처리
+  const navigate = useNavigate();
+
+  // ✅ 페이지 로딩 시 localStorage에서 로그인 상태 확인
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  // ✅ 로그인
   const handleLogin = () => {
     if (loginInfo.email && loginInfo.password) {
-      // 실제 앱에서는 서버에서 검증해야 함!
-      setUser({ name: '홍길동', email: loginInfo.email });
+      const newUser = { name: '홍길동', email: loginInfo.email };
+      setUser(newUser);
       setIsLoggedIn(true);
+      localStorage.setItem('user', JSON.stringify(newUser)); // ✅ localStorage에 저장
+      navigate('/');
     }
   };
 
-  // 로그아웃
+  // ✅ 로그아웃
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUser({ name: '', email: '' });
     setLoginInfo({ email: '', password: '' });
+    localStorage.removeItem('user'); // ✅ localStorage에서 제거
   };
 
-  // 사용자 정보 변경
+  // ✅ 사용자 정보 수정
   const handleUserChange = (e) => {
     const { name, value } = e.target;
-    setUser(prev => ({ ...prev, [name]: value }));
+    const updatedUser = { ...user, [name]: value };
+    setUser(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser)); // ✅ 수정 내용도 반영
   };
 
-  // 로그인 상태가 아닐 때
+  // ✅ 로그인 화면
   if (!isLoggedIn) {
     return (
       <Box sx={{ maxWidth: 400, mx: 'auto', mt: 5 }}>
@@ -61,7 +78,7 @@ function Account() {
     );
   }
 
-  // 로그인된 상태
+  // ✅ 로그인된 상태 화면
   return (
     <Box sx={{ maxWidth: 500, mx: 'auto', mt: 5 }}>
       <Typography variant="h5" gutterBottom>내 계정 정보</Typography>
