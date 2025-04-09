@@ -1,5 +1,28 @@
+import React from 'react';
+import { Box, Typography } from '@mui/material';
+
 function Home() {
-    return <h2>Home - AI로 생기부를 쉽고 정확하게! 교사의 수고를 덜고, 학생의 성장을 제대로 담아내는 생기부 시스템</h2>;
-  }
-  export default Home;
-  
+  return (
+    <Box
+      sx={{
+        height: '80vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        textAlign: 'center',
+        px: 2,
+        mt: 8
+      }}
+    >
+      <Typography variant="h3" component="h1" gutterBottom>
+        AI로 생기부를 쉽고 정확하게!
+      </Typography>
+      <Typography variant="h5" color="text.secondary">
+        클릭 몇 번으로 생기부 작성과 검토를 한 번에 ✨
+      </Typography>
+    </Box>
+  );
+}
+
+export default Home;
