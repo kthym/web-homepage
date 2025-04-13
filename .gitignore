@@ -1,0 +1,19 @@
+# Python
+*.pyc
+__pycache__/
+venv/
+.env
+
+# Django
+db.sqlite3
+
+# PostgreSQL dump
+*.dump
+*.sql
+
+# VSCode
+.vscode/
+
+# React build
+frontend/node_modules/
+frontend/build/
