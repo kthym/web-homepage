@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from record.views import StudentRecordCreateView
+from record.views import StudentRecordCreateView, StudentRecordValidateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/record/create/', StudentRecordCreateView.as_view(), name='record-create'),
+    path('api/record/validate/', StudentRecordValidateView.as_view(), name='record-validate'),
 ]
